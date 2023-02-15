@@ -26,7 +26,7 @@ namespace ConsoleApp3
             float x = left_border, previousX = left_border;
             while (true)
             {
-                float absDerivative = Math.Abs(Function.CalculateDerivative(x, lambda));
+                float absDerivative = Math.Abs(Function.CalculateDerivativeFi(x, lambda));
 
                 if (absDerivative < 0.5)
                     if (Math.Abs(x - previousX) <= epsilon) break;
@@ -34,12 +34,12 @@ namespace ConsoleApp3
                     if (Math.Abs(x - previousX) <= g(epsilon, absDerivative)) break;
                 
                 previousX = x;
-                x = Function.Calculate(x, lambda);
+                x = Function.CalculateFi(x, lambda);
             }
             return x;
         }
 
-        public (float, float, float) PrintSolutions(float epsilon = 0.00000001f)
+        public (float, float, float) PrintSolutions(float epsilon = 0.001f)
         {
             return (
                 Solve(-2, -1, Lambdas[0], epsilon),
