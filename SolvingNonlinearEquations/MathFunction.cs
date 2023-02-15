@@ -1,4 +1,4 @@
-﻿namespace FunctionCalculator
+﻿namespace SolvingNonlinearEquations
 {
     public class MathFunction
     {
