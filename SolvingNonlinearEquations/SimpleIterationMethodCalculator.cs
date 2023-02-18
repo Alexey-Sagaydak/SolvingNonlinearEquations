@@ -3,13 +3,11 @@
     public class SimpleIterationMethodCalculator
     {
         public MathFunction Function { get; set; }
-        public float[] Lambdas { get; set; }
 
         public SimpleIterationMethodCalculator(MathFunction _function)
         {
             if (_function == null) throw new ArgumentNullException(nameof(_function));
             Function = _function;
-            Lambdas = new float[3] { -0.0967f, 0.058f, -0.003775f };
         }
 
         private float g(float epsilon, float q) => (q - 1) / q * epsilon;
@@ -19,7 +17,7 @@
             float x = left_border, previousX = left_border;
             while (true)
             {
-                float absDerivative = Math.Abs(Function.CalculateDerivativeFi(x, lambda));
+                float absDerivative = Math.Abs(CalculateDerivativeFi(x, lambda));
 
                 if (absDerivative < 0.5)
                     if (Math.Abs(x - previousX) <= epsilon) break;
@@ -27,18 +25,19 @@
                     if (Math.Abs(x - previousX) <= g(epsilon, absDerivative)) break;
                 
                 previousX = x;
-                x = Function.CalculateFi(x, lambda);
+                x = CalculateFi(x, lambda);
             }
             return x;
         }
 
-        public (float, float, float) PrintSolutions(float epsilon = 0.001f)
+        private float CalculateFi(float x, float lambda)
         {
-            return (
-                Solve(-2, -1, Lambdas[0], epsilon),
-                Solve(1, 2, Lambdas[1], epsilon),
-                Solve(8, 9, Lambdas[2], epsilon)
-                );
+            return (float) Function.Calculate(x) * lambda + x;
+        }
+
+        private float CalculateDerivativeFi(float x, float lambda)
+        {
+            return (float) lambda * Function.CalculateDerivative(x) + 1;
         }
     }
 }

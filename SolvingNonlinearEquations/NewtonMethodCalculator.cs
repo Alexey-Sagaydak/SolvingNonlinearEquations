@@ -22,14 +22,5 @@
 
             return previousX;
         }
-
-        public (float, float, float) PrintSolutions(float epsilon = 0.001f)
-        {
-            return (
-                Solve(-2, -1, epsilon),
-                Solve(1, 2, epsilon),
-                Solve(8, 9, epsilon)
-                );
-        }
     }
 }
