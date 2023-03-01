@@ -4,10 +4,11 @@
     {
         public static void Main()
         {
-            float EPSILON1 = 0.0001f, EPSILON2 = 0.001f, EPSILON3 = 0.00001f, EPSILON4 = 0.0001f, EPSILON5 = 0.0001f, EPSILON6 = 0.00001f;
+            float EPSILON1 = 0.001f, EPSILON2 = 0.001f, EPSILON3 = 0.001f, EPSILON4 = 0.0001f, EPSILON5 = 0.0001f, EPSILON6 = 0.00001f;
             
             MathFunction Function = new MathFunction(x => (float)(Math.Pow(2, x) - 5 * Math.Pow(x, 2) + 10),
-                x => (float)(Math.Log(2) * Math.Pow(2, x) - 10 * x));
+                x => (float)(Math.Log(2) * Math.Pow(2, x) - 10 * x),
+                x => (float)(Math.Log(2) * Math.Log(2) * Math.Pow(2, x) - 10f));
            
             SimpleIterationMethodCalculator Calculator1 = new SimpleIterationMethodCalculator(Function);
             NewtonMethodCalculator Calculator2 = new NewtonMethodCalculator(Function);
@@ -36,7 +37,7 @@
             Console.WriteLine(Calculator3.Solve(8, 9, EPSILON3));
             
             Function = new MathFunction(x => (float)(100*Math.Pow(x, 2) - 10000*x - 2),
-                x => (float)(200*x - 10000));
+                x => (float)(200*x - 10000), x => 200f);
 
             Calculator1 = new SimpleIterationMethodCalculator(Function);
             Calculator2 = new NewtonMethodCalculator(Function);

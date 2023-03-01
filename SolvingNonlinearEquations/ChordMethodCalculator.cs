@@ -14,16 +14,31 @@ namespace SolvingNonlinearEquations
 
         public float Solve(float left_border, float right_border, float epsilon = 0.001f)
         {
-            float x = right_border, previousX = x + epsilon * 2;
+            float x, previousX;
+            float a = Function.CalculateSecondDerivative(right_border);
+            float b = Function.Calculate(right_border);
+            if (Function.CalculateSecondDerivative(right_border) * Function.Calculate(right_border) >= 0)
+                x = left_border;
+            else
+                x = right_border;
+            
+            previousX = x + epsilon * 2;
+            Console.WriteLine();
             while (Math.Abs(x - previousX) > epsilon)
             {
                 previousX = x - epsilon;
-                x -= (right_border - previousX) * Function.Calculate(previousX) /
-                    (Function.Calculate(right_border) - Function.Calculate(previousX));
+                if (Function.CalculateSecondDerivative(right_border) * Function.Calculate(right_border) >= 0)
+                    x -= (right_border - previousX) * Function.Calculate(previousX) /
+                        (Function.Calculate(right_border) - Function.Calculate(previousX));
+                else
+                    x -= (previousX - left_border) * Function.Calculate(previousX) /
+                         (Function.Calculate(previousX) - Function.Calculate(left_border));
 
                 previousX += epsilon;
+                Console.WriteLine(previousX);
             }
 
+            Console.WriteLine();
             return previousX;
         }
     }

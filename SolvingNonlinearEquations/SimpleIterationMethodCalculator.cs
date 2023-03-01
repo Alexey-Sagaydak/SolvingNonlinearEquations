@@ -15,6 +15,7 @@
         public float Solve(float left_border, float right_border, float lambda, float epsilon = 0.001f)
         {
             float x = left_border, previousX = left_border;
+            Console.WriteLine();
             while (true)
             {
                 float absDerivative = Math.Abs(CalculateDerivativeFi(x, lambda));
@@ -26,7 +27,10 @@
                 
                 previousX = x;
                 x = CalculateFi(x, lambda);
+                Console.WriteLine(x);
             }
+
+            Console.WriteLine();
             return x;
         }
 
